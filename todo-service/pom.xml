@@ -11,8 +11,8 @@
 
     <artifactId>todo-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>lottery-service</name>
-    <description>Lottery Microservice</description>
+    <name>todo-service</name>
+    <description>Todo Microservice</description>
     <url/>
     <licenses>
         <license/>

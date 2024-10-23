@@ -1,4 +1,4 @@
-package com.airtime.logbook_service.controllers;
+package com.airtime.person_service.controllers;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -10,13 +10,6 @@ public class ErrorController {
 
     @Value("${spring.application.name}")
     private String appName;
-
-    @GetMapping("/error")
-    public String error(Model model) {
-        model.addAttribute("appName", appName);
-        model.addAttribute("message", "Error");
-        return "error";
-    }
 
     @GetMapping("/403")
     public String forbidden(Model model) {
