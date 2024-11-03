@@ -19,12 +19,7 @@ public class PersonDTO {
     private String moniker;
     private PersonRole personRole;
     private PersonAttribute personAttribute;
-    private List<Membership> memberships;
     private UUID uuid;
-    private List<GoalDTO> goals;
     private String emailAddress;
     private String authEmailAddress;
-    private FlightSummaryDTO flightSummary;
-    private List<Licence> licences;
-    private List<Todo> todoList;
 }

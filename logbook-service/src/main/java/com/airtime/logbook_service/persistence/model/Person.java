@@ -199,11 +199,9 @@ public class Person {
                 .moniker(this.getMoniker())
                 .personRole(this.getPersonRole())
                 .personAttribute(this.getPersonAttribute())
-                .memberships(this.getMemberships())
                 .uuid(this.getUuid())
                 .emailAddress(this.getEmailAddress())
                 .authEmailAddress(this.getAuthEmailAddress())
-                .licences(this.getLicences())
                 .build();
     }
 }

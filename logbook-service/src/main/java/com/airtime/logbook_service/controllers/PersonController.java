@@ -42,18 +42,8 @@ public class PersonController {
 
         if (person != null) {
             personDTO = person.dto();
-            List<Flight> flightList = flightService.getAllFlightsByOwner(person);
-
-            if (!flightList.isEmpty()) {
-                FlightSummaryDTO flightSummaryDTO = flightService.getFlightSummary(flightList);
-
-                if (flightSummaryDTO != null) {
-                    personDTO.setFlightSummary(flightSummaryDTO);
-                }
-            }
 
             if (!person.getGoals().isEmpty()) {
-                List<GoalDTO> goalDTOList = new ArrayList<>();
                 for (Goal goal : person.getGoals()) {
                     GoalDTO goalDTO = goal.dto();
                     List<Flight> flightListFromGoal = flightService.getFlightsFromGoal(goal);
@@ -63,10 +53,7 @@ public class PersonController {
                             goalDTO.setFlightSummary(flightSummaryDTO);
                         }
                     }
-                    goalDTOList.add(goalDTO);
                 }
-
-                personDTO.setGoals(goalDTOList);
             }
         }
 
@@ -89,7 +76,7 @@ public class PersonController {
         return (deleted ? new ResponseEntity<>("", HttpStatus.OK) : new ResponseEntity<>("Failed to remove", HttpStatus.BAD_REQUEST));
     }
 
-    @PostMapping(value = "/api/person/")
+    @PostMapping(value = "/api/person")
     public ResponseEntity<String> addPerson(@RequestBody @Validated PersonDTO personDTO) {
         boolean saved = false;
 
