@@ -13,9 +13,7 @@ import com.airtime.logbook_service.service.PersonService;
 import com.airtime.logbook_service.web.dto.GoalDTO;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = "*")
 @RestController
@@ -30,7 +28,7 @@ public class GoalController {
         this.personService = personService;
     }
 
-    @GetMapping(value = "/api/goals")
+   /* @GetMapping(value = "/api/goals")
     public List<GoalDTO> getGoals(Authentication authentication) {
         List<GoalDTO> goalDTOList = new ArrayList<>();
         Person person = personService.findPersonByAuthUserId(authentication.getName());
@@ -44,7 +42,7 @@ public class GoalController {
         }
 
         return goalDTOList;
-    }
+    }*/
 
     @PostMapping(value = "/api/goal")
     public ResponseEntity<String> saveGoal(Authentication authentication, @RequestBody @Validated GoalDTO goalDTO) {
@@ -62,9 +60,9 @@ public class GoalController {
             goal.setEndDate(goalDTO.getEndDate());
             goal.setHoursRequired(goalDTO.getHoursRequired());
             goal.setInUse(goalDTO.isInUse());
-            goal.setCreatedBy(person.getName());
+            goal.setCreatedBy(person.getForename());
             goal.setCreatedDate(timestamp);
-            goal.setUpdatedBy(person.getName());
+            goal.setUpdatedBy(person.getForename());
             goal.setUpdatedDate(timestamp);
             saved = goalService.save(goal);
         } catch (Exception e) {

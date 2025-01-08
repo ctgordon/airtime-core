@@ -33,7 +33,7 @@ public class TodoController {
         this.todoStatusService = todoStatusService;
     }
 
-    @GetMapping(value = "todo")
+    /*@GetMapping(value = "todo")
     public ResponseEntity<List<TodoDTO>> findAllTodo(@AuthenticationPrincipal OAuth2User user) {
         List<TodoDTO> todoDTOList = new ArrayList<>();
         if (user != null) {
@@ -51,7 +51,7 @@ public class TodoController {
         }
 
         return new ResponseEntity<>(todoDTOList, HttpStatus.OK);
-    }
+    }*/
 
     @GetMapping(value = "todo/{id}")
     public ResponseEntity<TodoDTO> findTodoById(@AuthenticationPrincipal OAuth2User user, @PathVariable("id") final UUID id) {
@@ -83,8 +83,8 @@ public class TodoController {
                 if (existingTodo != null) {
                     existingTodo.setDescription(todoDTO.getDescription());
                     existingTodo.setTodoStatus(todoDTO.getTodoStatus());
-                    existingTodo.setUpdatedBy(person.getUuid());
-                    existingTodo.setOwnerId(person.getUuid());
+                    existingTodo.setUpdatedBy(person.getAppUserId());
+                    existingTodo.setOwnerId(person.getAppUserId());
                     existingTodo.setUpdatedDate(timestamp);
                     saved = todoService.save(existingTodo);
                 } else {
@@ -92,11 +92,11 @@ public class TodoController {
                     todo.setId(UUID.randomUUID());
                     todo.setDescription(todoDTO.getDescription());
                     todo.setTodoStatus(todoDTO.getTodoStatus());
-                    todo.setCreatedBy(person.getUuid());
+                    todo.setCreatedBy(person.getAppUserId());
                     todo.setCreatedDate(timestamp);
-                    todo.setUpdatedBy(person.getUuid());
+                    todo.setUpdatedBy(person.getAppUserId());
                     todo.setUpdatedDate(timestamp);
-                    todo.setOwnerId(person.getUuid());
+                    todo.setOwnerId(person.getAppUserId());
                     saved = todoService.save(todo);
                 }
             }

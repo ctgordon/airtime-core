@@ -4,7 +4,6 @@ import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 import com.airtime.logbook_service.persistence.model.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -15,11 +14,12 @@ import java.util.UUID;
 @Builder
 public class PersonDTO {
     private int id;
-    private String name;
-    private String moniker;
-    private PersonRole personRole;
+    private String forename;
+    private String surname;
+    private String knownAs;
+    //private PersonRole personRole;
     private PersonAttribute personAttribute;
-    private UUID uuid;
-    private String emailAddress;
+    private UUID appUserId;
+    private String appEmailAddress;
     private String authEmailAddress;
 }

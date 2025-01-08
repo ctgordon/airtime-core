@@ -35,7 +35,7 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public List<Flight> getAllFlightsByOwner(Person person) {
-        return flightRepository.findFlightByOwnerId(person.getUuid());
+        return flightRepository.findFlightByOwnerId(person.getAppUserId());
     }
 
     @Override
@@ -99,7 +99,7 @@ public class FlightServiceImpl implements FlightService {
         long totalDualMinutes = 0;
         Flight latestFlight = null;
 
-        if (!flightList.isEmpty()) {
+        /*if (!flightList.isEmpty()) {
             totalMinutes = getMinutes(flightList);
 
             List<Flight> picList = flightList.stream().filter(flight -> flight.getPerson().getMoniker().equals("SELF")).collect(Collectors.toList());
@@ -115,7 +115,7 @@ public class FlightServiceImpl implements FlightService {
             }
 
             latestFlight = Collections.max(flightList, Comparator.comparing(Flight::getDepartureDatetime));
-        }
+        }*/
 
         flightSummaryDTO.setTotalHours(hoursAndMinutes(totalMinutes));
         flightSummaryDTO.setTotalHoursDual(hoursAndMinutes(totalDualMinutes));

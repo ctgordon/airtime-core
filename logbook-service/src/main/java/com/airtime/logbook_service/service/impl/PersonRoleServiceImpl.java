@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service("personRoleService")
 public class PersonRoleServiceImpl implements PersonRoleService {
@@ -27,5 +28,15 @@ public class PersonRoleServiceImpl implements PersonRoleService {
         }
 
         return personRoleDTOList;
+    }
+
+    @Override
+    public PersonRole findByRole(String role) {
+        PersonRole personRole = null;
+        Optional<PersonRole> optionalPersonRole = this.personRoleRepository.findByRole(role);
+        if (optionalPersonRole.isPresent()) {
+            personRole = optionalPersonRole.get();
+        }
+        return personRole;
     }
 }

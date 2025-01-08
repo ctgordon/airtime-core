@@ -27,7 +27,7 @@ public class UserController {
     @GetMapping("/api/user")
     public ResponseEntity<?> getUser(@AuthenticationPrincipal OAuth2User user) {
         if (user == null) {
-            return new ResponseEntity<>("", HttpStatus.OK);
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         } else {
             return ResponseEntity.ok().body(user.getAttributes());
         }

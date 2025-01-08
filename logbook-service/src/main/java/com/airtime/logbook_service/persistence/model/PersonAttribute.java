@@ -1,19 +1,19 @@
 package com.airtime.logbook_service.persistence.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "person_attribute", schema = "airtime", catalog = "")
 public class PersonAttribute {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id", nullable = false)
-    private int id;
-    @Basic
-    @Column(name = "person_id", nullable = false, insertable = false, updatable = false)
-    private int personId;
+    @JdbcTypeCode(SqlTypes.UUID)
+    @Column(name = "APP_USER_ID", columnDefinition = "uuid", unique = true)
+    private UUID appUserId;
 
     @Basic
     @Column(name = "weight_kg")
@@ -26,21 +26,13 @@ public class PersonAttribute {
     public PersonAttribute() {
     }
 
-    public int getId() {
-        return id;
+    /*public UUID getAppUserId() {
+        return appUserId;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(int personId) {
-        this.personId = personId;
-    }
+    public void setAppUserId(UUID appUserId) {
+        this.appUserId = appUserId;
+    }*/
 
     public int getWeightKg() {
         return weightKg;
@@ -58,16 +50,15 @@ public class PersonAttribute {
         this.heightCm = heightCm;
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PersonAttribute that = (PersonAttribute) o;
-        return id == that.id && personId == that.personId && weightKg == that.weightKg && heightCm == that.heightCm;
+        if (!(o instanceof PersonAttribute that)) return false;
+        return id == that.id && weightKg == that.weightKg && heightCm == that.heightCm && Objects.equals(appUserId, that.appUserId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, personId, weightKg, heightCm);
-    }
+        return Objects.hash(id, appUserId, weightKg, heightCm);
+    }*/
 }

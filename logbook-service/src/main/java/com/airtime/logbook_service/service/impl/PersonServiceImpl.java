@@ -35,13 +35,11 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public boolean save(Person person) {
         boolean saved = false;
-        if (!personRepository.existsPersonByName(person.getName())) {
-            try {
-                this.personRepository.save(person);
-                saved = true;
-            } catch (Exception e) {
-                System.out.println(e);
-            }
+        try {
+            this.personRepository.save(person);
+            saved = true;
+        } catch (Exception e) {
+            System.out.println(e);
         }
 
         return saved;
@@ -70,7 +68,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person findPersonByUuid(UUID uuid) {
         Person person = null;
-        Optional<Person> optional = personRepository.findPersonByUuid(uuid);
+        Optional<Person> optional = personRepository.findPersonByAppUserId(uuid);
         if (optional.isPresent()) {
             person = optional.get();
         }
@@ -80,10 +78,10 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person findPersonByName(String name) {
         Person person = null;
-        Optional<Person> optional = personRepository.findPersonByNameIgnoreCase(name);
+        /*Optional<Person> optional = personRepository.findPersonByNameIgnoreCase(name);
         if (optional.isPresent()) {
             person = optional.get();
-        }
+        }*/
         return person;
     }
 }

@@ -177,7 +177,7 @@ public class FlightController {
             Person person = personService.findPersonByName("Christopher Gordon");
 
             if (person != null) {
-                flight.setOwnerId(person.getUuid());
+                flight.setOwnerId(person.getAppUserId());
             }
 
             flight.setUpdatedBy("chris.gordon");

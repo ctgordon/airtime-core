@@ -9,11 +9,7 @@ import java.util.UUID;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Integer> {
-    boolean existsPersonByName(String name);
-
-    Optional<Person> findPersonByNameIgnoreCase(String name);
-
-    Optional<Person> findPersonByUuid(UUID uuid);
+    Optional<Person> findPersonByAppUserId(UUID appUserId);
 
     Optional<Person> findByAuthUserId(String userId);
 }

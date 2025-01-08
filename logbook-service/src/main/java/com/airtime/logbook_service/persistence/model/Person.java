@@ -5,7 +5,6 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import com.airtime.logbook_service.web.dto.PersonDTO;
 
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -16,58 +15,34 @@ public class Person {
     private int id;
 
     @JdbcTypeCode(SqlTypes.UUID)
-    @Column(name = "UUID", columnDefinition = "uuid", unique = true)
-    private UUID uuid;
+    @Column(name = "APP_USER_ID", columnDefinition = "uuid", unique = true)
+    private UUID appUserId;
 
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "FORENAME")
+    private String forename;
 
-    @Column(name = "MONIKER")
-    private String moniker;
+    @Column(name = "SURNAME")
+    private String surname;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "role", referencedColumnName = "id")
-    private PersonRole personRole;
-
-    /*@OneToMany(mappedBy = "person")
-    private List<PersonAttribute> personAttributes;*/
-
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id", referencedColumnName = "person_id")
-    private PersonAttribute personAttribute;
+    @Column(name = "KNOWN_AS")
+    private String knownAs;
 
     /*@OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id", referencedColumnName = "person_id")
-    private Membership membership;*/
+    @JoinColumn(name = "APP_ROLE", referencedColumnName = "id")
+    private PersonRole personRole;*/
 
-    @OneToMany
-    @JoinColumn(name = "person_id")
-    private List<Membership> memberships;
+    /*@OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(referencedColumnName = "app_user_id", name = "app_user_id")
+    private PersonAttribute personAttribute;*/
 
-    @OneToMany
-    @JoinColumn(name = "owner_id", referencedColumnName = "uuid")
-    private List<Flight> flights;
-
-    @OneToMany
-    @JoinColumn(name = "person_id")
-    private List<Goal> goals;
-
-    @Column(name = "email_address")
-    private String emailAddress;
+    @Column(name = "APP_EMAIL_ADDRESS")
+    private String appEmailAddress;
 
     @Column(name = "auth_email_address")
     private String authEmailAddress;
 
     @Column(name = "auth_user_id")
     private String authUserId;
-
-    @OneToMany
-    @JoinColumn(name = "owner_id", referencedColumnName = "id")
-    private List<Licence> licences;
-
-    @OneToMany
-    @JoinColumn(name = "owner_id", referencedColumnName = "uuid")
-    private List<Todo> todoList;
 
     public Person() {
     }
@@ -80,76 +55,52 @@ public class Person {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getForename() {
+        return forename;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setForename(String name) {
+        this.forename = name;
     }
 
-    public String getMoniker() {
-        return moniker;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setMoniker(String moniker) {
-        this.moniker = moniker;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public PersonRole getPersonRole() {
-        return personRole;
+    public String getKnownAs() {
+        return knownAs;
     }
 
-    public void setPersonRole(PersonRole personRole) {
-        this.personRole = personRole;
+    public void setKnownAs(String knownAs) {
+        this.knownAs = knownAs;
     }
 
-    /*public List<PersonAttribute> getPersonAttributes() {
-        return personAttributes;
-    }
-
-    public void setPersonAttributes(List<PersonAttribute> personAttributes) {
-        this.personAttributes = personAttributes;
-    }*/
-
-    public PersonAttribute getPersonAttribute() {
+    /*public PersonAttribute getPersonAttribute() {
         return personAttribute;
     }
 
     public void setPersonAttribute(PersonAttribute personAttribute) {
         this.personAttribute = personAttribute;
+    }*/
+
+    public UUID getAppUserId() {
+        return appUserId;
     }
 
-    public List<Membership> getMemberships() {
-        return memberships;
+    public void setAppUserId(UUID uuid) {
+        this.appUserId = uuid;
     }
 
-    public void setMemberships(List<Membership> memberships) {
-        this.memberships = memberships;
+    public String getAppEmailAddress() {
+        return appEmailAddress;
     }
 
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
-    public List<Goal> getGoals() {
-        return goals;
-    }
-
-    public void setGoals(List<Goal> goals) {
-        this.goals = goals;
-    }
-
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public void setAppEmailAddress(String emailAddress) {
+        this.appEmailAddress = emailAddress;
     }
 
     public String getAuthEmailAddress() {
@@ -168,39 +119,14 @@ public class Person {
         this.authUserId = authUserId;
     }
 
-    public List<Flight> getFlights() {
-        return flights;
-    }
-
-    public void setFlights(List<Flight> flights) {
-        this.flights = flights;
-    }
-
-    public List<Licence> getLicences() {
-        return licences;
-    }
-
-    public void setLicences(List<Licence> licences) {
-        this.licences = licences;
-    }
-
-    public List<Todo> getTodoList() {
-        return todoList;
-    }
-
-    public void setTodoList(List<Todo> todoList) {
-        this.todoList = todoList;
-    }
-
     public PersonDTO dto() {
         return PersonDTO.builder()
                 .id(this.getId())
-                .name(this.getName())
-                .moniker(this.getMoniker())
-                .personRole(this.getPersonRole())
-                .personAttribute(this.getPersonAttribute())
-                .uuid(this.getUuid())
-                .emailAddress(this.getEmailAddress())
+                .forename(this.getForename())
+                .surname(this.getSurname())
+                .knownAs(this.getKnownAs())
+                .appUserId(this.getAppUserId())
+                .appEmailAddress(this.getAppEmailAddress())
                 .authEmailAddress(this.getAuthEmailAddress())
                 .build();
     }

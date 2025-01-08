@@ -94,12 +94,12 @@ public class MailServiceImpl implements MailService {
         if (subscribers != null && !subscribers.isEmpty()) {
             subscribers.forEach(subscriber -> {
                 SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-                simpleMailMessage.setTo(subscriber.getPerson().getEmailAddress());
+                simpleMailMessage.setTo(subscriber.getPerson().getAppEmailAddress());
                 simpleMailMessage.setSubject(subject);
                 simpleMailMessage.setFrom(senderEmail);
                 String content = "";
                 Person person = subscriber.getPerson();
-                if (subscriber.isDailyEmail() && person != null && person.getEmailAddress() != null) {
+                if (subscriber.isDailyEmail() && person != null && person.getAppEmailAddress() != null) {
 
                     List<Flight> flightList = flightService.getAllFlightsByOwner(person);
 
@@ -127,7 +127,7 @@ public class MailServiceImpl implements MailService {
                             content += lastFlight(flightSummaryDTO);
                             content += timeSinceAto();
 
-                            if (person.getMemberships() != null) {
+                            /*if (person.getMemberships() != null) {
                                 List<Membership> membershipList = person.getMemberships().stream().filter(Membership::isInUse).toList();
                                 if (!membershipList.isEmpty()) {
                                     content += memberships(membershipList);
@@ -139,7 +139,7 @@ public class MailServiceImpl implements MailService {
                                 if (!goalList.isEmpty()) {
                                     content += goals(goalList);
                                 }
-                            }
+                            }*/
 
                             content += "<p></p>";
 
@@ -183,7 +183,7 @@ public class MailServiceImpl implements MailService {
         return openTable() +
                 "     <tr>\n" +
                 "       <td style=\"padding: 30px 0;\">\n" +
-                "        <h2 style=\"font-size: 28px; margin:0 0 20px 0; font-family:Arial;\"> Hello, " + person.getName() + ".</h2>\n" +
+                "        <h2 style=\"font-size: 28px; margin:0 0 20px 0; font-family:Arial;\"> Hello, " + person.getForename() + ".</h2>\n" +
                 "         <p style=\"margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial\">Ut eget semper libero. Vestibulum non maximus nisl, ut iaculis ante. Nunc arcu elit, cursus eget urna et, tempus aliquam eros. Ut eget semper libero. Vestibulum non maximus nisl, ut iaculis ante. Nunc arcu elit, cursus eget urna et, tempus aliquam eros.</p>\n" +
                 "           <p style=\"margin:0;font-size:16px;line-height:24px;font-family:Arial;\"><a href=\"#\" style=\"color:#FF7A59;text-decoration:underline;\">Learn more</a></p>\n" +
                 "         </td> \n" +
@@ -328,7 +328,7 @@ public class MailServiceImpl implements MailService {
         content += "<td><strong>Aircraft<strong></td><td>" + flightDTO.getAircraft().getTailNumber() + "</td>";
         content += "</tr>";
         content += "<tr>";
-        content += "<td><strong>PIC<strong></td><td>" + flightDTO.getPilotInCommand().getMoniker() + "</td>";
+        content += "<td><strong>PIC<strong></td><td>" + flightDTO.getPilotInCommand().getKnownAs() + "</td>";
         content += "</tr>";
         content += "<tr>";
         content += "<td><strong>From<strong></td><td>" + flightDTO.getDepartureAirport().getAirportName() + " (" + flightDTO.getDepartureAirport().getAirportCode() + ")</td>";
