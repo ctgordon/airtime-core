@@ -87,8 +87,9 @@ public class PersonController {
                 person.setKnownAs(personDTO.getKnownAs());
                 person.setAppEmailAddress(personDTO.getAppEmailAddress());
                 //person.setPersonRole(personDTO.getPersonRole());
-                person.setAppUserId(uuid);
-                //person.setPersonAttribute(personDTO.getPersonAttribute());
+                //person.setAppUserId(uuid);
+                //person.getPersonAttribute().setId(person.getAppUserId());
+                person.setPersonAttribute(personDTO.getPersonAttribute());
                 saved = personService.save(person);
             } else {
                 //ToDo - use more elegant solution for attributing role

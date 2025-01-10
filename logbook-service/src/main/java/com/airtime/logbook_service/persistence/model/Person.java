@@ -31,9 +31,9 @@ public class Person {
     @JoinColumn(name = "APP_ROLE", referencedColumnName = "id")
     private PersonRole personRole;*/
 
-    /*@OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(referencedColumnName = "app_user_id", name = "app_user_id")
-    private PersonAttribute personAttribute;*/
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(referencedColumnName = "ID", name = "PERSON_ATTRIBUTE_ID")
+    private PersonAttribute personAttribute;
 
     @Column(name = "APP_EMAIL_ADDRESS")
     private String appEmailAddress;
@@ -79,13 +79,13 @@ public class Person {
         this.knownAs = knownAs;
     }
 
-    /*public PersonAttribute getPersonAttribute() {
+    public PersonAttribute getPersonAttribute() {
         return personAttribute;
     }
 
     public void setPersonAttribute(PersonAttribute personAttribute) {
         this.personAttribute = personAttribute;
-    }*/
+    }
 
     public UUID getAppUserId() {
         return appUserId;
@@ -128,6 +128,7 @@ public class Person {
                 .appUserId(this.getAppUserId())
                 .appEmailAddress(this.getAppEmailAddress())
                 .authEmailAddress(this.getAuthEmailAddress())
+                .personAttribute(this.getPersonAttribute())
                 .build();
     }
 }

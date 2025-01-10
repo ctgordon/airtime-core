@@ -10,10 +10,12 @@ import java.util.UUID;
 @Entity
 @Table(name = "person_attribute", schema = "airtime", catalog = "")
 public class PersonAttribute {
+
     @Id
     @JdbcTypeCode(SqlTypes.UUID)
-    @Column(name = "APP_USER_ID", columnDefinition = "uuid", unique = true)
-    private UUID appUserId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", columnDefinition = "uuid", unique = true)
+    private UUID id;
 
     @Basic
     @Column(name = "weight_kg")
@@ -26,13 +28,13 @@ public class PersonAttribute {
     public PersonAttribute() {
     }
 
-    /*public UUID getAppUserId() {
-        return appUserId;
+    public UUID getId() {
+        return id;
     }
 
-    public void setAppUserId(UUID appUserId) {
-        this.appUserId = appUserId;
-    }*/
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public int getWeightKg() {
         return weightKg;
@@ -50,15 +52,15 @@ public class PersonAttribute {
         this.heightCm = heightCm;
     }
 
-    /*@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof PersonAttribute that)) return false;
-        return id == that.id && weightKg == that.weightKg && heightCm == that.heightCm && Objects.equals(appUserId, that.appUserId);
+        return weightKg == that.weightKg && heightCm == that.heightCm && Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, appUserId, weightKg, heightCm);
-    }*/
+        return Objects.hash(id, weightKg, heightCm);
+    }
 }
