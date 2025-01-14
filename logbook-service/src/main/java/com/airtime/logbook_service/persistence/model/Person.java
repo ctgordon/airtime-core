@@ -27,9 +27,9 @@ public class Person {
     @Column(name = "KNOWN_AS")
     private String knownAs;
 
-    /*@OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "APP_ROLE", referencedColumnName = "id")
-    private PersonRole personRole;*/
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(referencedColumnName = "id", name = "PERSON_ROLE")
+    private PersonRole personRole;
 
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(referencedColumnName = "ID", name = "PERSON_ATTRIBUTE_ID")
@@ -77,6 +77,14 @@ public class Person {
 
     public void setKnownAs(String knownAs) {
         this.knownAs = knownAs;
+    }
+
+    public PersonRole getPersonRole() {
+        return personRole;
+    }
+
+    public void setPersonRole(PersonRole personRole) {
+        this.personRole = personRole;
     }
 
     public PersonAttribute getPersonAttribute() {
@@ -129,6 +137,7 @@ public class Person {
                 .appEmailAddress(this.getAppEmailAddress())
                 .authEmailAddress(this.getAuthEmailAddress())
                 .personAttribute(this.getPersonAttribute())
+                .personRole(this.getPersonRole())
                 .build();
     }
 }

@@ -4,7 +4,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.util.Map.of;
 
@@ -25,9 +30,19 @@ public class UserController {
     }
 
     @GetMapping("/api/user")
+    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        var authorities = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
+        System.out.println(authorities);
+        // ToDo https://developer.auth0.com/resources/guides/web-app/spring/basic-role-based-access-control
+        return Collections.singletonMap("name", principal.getAttribute("name"));
+    }
+
+    @GetMapping("/apixxx/user")
     public ResponseEntity<?> getUser(@AuthenticationPrincipal OAuth2User user) {
         if (user == null) {
-            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("User not found", HttpStatus.BAD_REQUEST);
         } else {
             return ResponseEntity.ok().body(user.getAttributes());
         }

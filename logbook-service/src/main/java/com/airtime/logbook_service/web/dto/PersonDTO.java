@@ -17,7 +17,7 @@ public class PersonDTO {
     private String forename;
     private String surname;
     private String knownAs;
-    //private PersonRole personRole;
+    private PersonRole personRole;
     private PersonAttribute personAttribute;
     private UUID appUserId;
     private String appEmailAddress;
