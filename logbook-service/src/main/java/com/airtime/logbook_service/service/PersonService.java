@@ -7,13 +7,12 @@ import java.util.List;
 import java.util.UUID;
 
 public interface PersonService {
+    List<Person> findAll();
     List<PersonDTO> findAllPeople();
 
     boolean save(Person person);
 
     Person findPersonById(int id);
-
-    Person findPersonByAuthUserId(String userId);
 
     Person findPersonByName(String name);
 

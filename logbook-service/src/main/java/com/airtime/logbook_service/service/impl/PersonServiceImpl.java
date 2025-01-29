@@ -2,14 +2,14 @@ package com.airtime.logbook_service.service.impl;
 
 import com.airtime.logbook_service.persistence.dao.PersonRepository;
 import com.airtime.logbook_service.persistence.model.Person;
+import com.airtime.logbook_service.persistence.model.Role;
 import com.airtime.logbook_service.service.PersonService;
 import com.airtime.logbook_service.web.dto.PersonDTO;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service("personService")
 public class PersonServiceImpl implements PersonService {
@@ -18,6 +18,11 @@ public class PersonServiceImpl implements PersonService {
 
     public PersonServiceImpl(PersonRepository personRepository) {
         this.personRepository = personRepository;
+    }
+
+    @Override
+    public List<Person> findAll() {
+        return this.personRepository.findAll();
     }
 
     @Override
@@ -55,15 +60,6 @@ public class PersonServiceImpl implements PersonService {
         return person;
     }
 
-    @Override
-    public Person findPersonByAuthUserId(String userId) {
-        Person person = null;
-        Optional<Person> optional = personRepository.findByAuthUserId(userId);
-        if (optional.isPresent()) {
-            person = optional.get();
-        }
-        return person;
-    }
 
     @Override
     public Person findPersonByUuid(UUID uuid) {

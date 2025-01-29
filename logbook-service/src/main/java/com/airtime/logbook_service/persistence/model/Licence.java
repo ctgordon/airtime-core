@@ -34,9 +34,9 @@ public class Licence {
     @Column(name = "owner_id")
     private int ownerId;
 
-    @OneToMany
+    /*@OneToMany
     @JoinColumn(name = "licence_id", referencedColumnName = "id")
-    private List<CertificateOfRevalidation> certificatesOfRevalidation;
+    private List<CertificateOfRevalidation> certificatesOfRevalidation;*/
 
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "type", referencedColumnName = "id")
@@ -106,13 +106,13 @@ public class Licence {
         this.ownerId = ownerId;
     }
 
-    public List<CertificateOfRevalidation> getCertificatesOfRevalidation() {
+    /*public List<CertificateOfRevalidation> getCertificatesOfRevalidation() {
         return certificatesOfRevalidation;
     }
 
     public void setCertificatesOfRevalidation(List<CertificateOfRevalidation> certificatesOfRevalidation) {
         this.certificatesOfRevalidation = certificatesOfRevalidation;
-    }
+    }*/
 
     public RatingType getRatingType() {
         return ratingType;

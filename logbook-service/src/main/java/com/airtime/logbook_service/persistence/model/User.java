@@ -1,73 +1,73 @@
 package com.airtime.logbook_service.persistence.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-import java.util.Objects;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
-@Table(name = "users")
+@Table(name = "USER")
 public class User {
-
     @Id
-    private String id;
-    private String name;
-    private String email;
+    @JdbcTypeCode(SqlTypes.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", columnDefinition = "uuid", unique = true)
+    private UUID id;
+
+    @Column(name = "USER_ID")
+    private String userId;
+
+    @Column(name = "EMAIL_ADDRESS")
+    private String emailAddress;
+
+    @Column(name = "IN_USE")
+    private boolean inUse;
+
+    @OneToMany
+    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
+    private List<UserRole> userRoles;
 
     public User() {}
 
-    public User(String id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
-
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        return Objects.equals(id, user.id);
+    public boolean isInUse() {
+        return inUse;
     }
 
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+    public void setInUse(boolean inUse) {
+        this.inUse = inUse;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+    public List<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(List<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 }

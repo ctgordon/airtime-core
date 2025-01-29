@@ -30,7 +30,7 @@ public interface FlightService {
 
     List<Flight> getFlightsBetween();
 
-    List<FlightDTO> getFlightsFromCustomReport(CustomReport customReport);
+    //List<FlightDTO> getFlightsFromCustomReport(CustomReport customReport);
 
     List<Flight> getFlightsFromGoal(Goal goal);
 }

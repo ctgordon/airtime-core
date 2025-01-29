@@ -153,7 +153,7 @@ public class FlightServiceImpl implements FlightService {
         return flightList;
     }
 
-    @Override
+    /*@Override
     public List<FlightDTO> getFlightsFromCustomReport(CustomReport customReport) {
         List<FlightDTO> flightDTOList = new ArrayList<>();
         List<Flight> flightList = null;
@@ -179,7 +179,7 @@ public class FlightServiceImpl implements FlightService {
         }
 
         return flightDTOList;
-    }
+    }*/
 
     @Override
     public List<Flight> getFlightsFromGoal(Goal goal) {

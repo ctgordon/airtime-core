@@ -25,16 +25,14 @@ public class FlightController {
     private final AircraftService aircraftService;
     private final PersonService personService;
     private final AirportService airportService;
-    private final CustomReportService customReportService;
     private final ClientRegistration registration;
 
-    public FlightController(ClientRegistrationRepository registrations, FlightService flightService, AircraftService aircraftService, PersonService personService, AirportService airportService, CustomReportService customReportService) {
+    public FlightController(ClientRegistrationRepository registrations, FlightService flightService, AircraftService aircraftService, PersonService personService, AirportService airportService) {
         this.registration = registrations.findByRegistrationId("okta");
         this.flightService = flightService;
         this.aircraftService = aircraftService;
         this.personService = personService;
         this.airportService = airportService;
-        this.customReportService = customReportService;
     }
 
     @GetMapping(value = "/api/flights/{uuid}")
@@ -45,7 +43,7 @@ public class FlightController {
     @GetMapping(value = "flights")
     public ResponseEntity<List<FlightDTO>> findAllFlights(@AuthenticationPrincipal OAuth2User user) {
         List<FlightDTO> flightDTOList = null;
-        if (user != null) {
+        /*if (user != null) {
             Person person = personService.findPersonByAuthUserId(user.getAttribute("sub"));
             if (person != null) {
                 List<Flight> flightList = flightService.getAllFlightsByOwner(person);
@@ -53,7 +51,7 @@ public class FlightController {
                     flightDTOList = flightService.getAllFlightsDTO(flightList);
                 }
             }
-        }
+        }*/
 
         return (flightDTOList != null) ? new ResponseEntity<>(flightDTOList, HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
@@ -81,19 +79,6 @@ public class FlightController {
             flightSummaryDTO = flightService.getFlightSummary(flightList);
         }
         return flightSummaryDTO;
-    }
-
-    @GetMapping(value = "/api/flights/custom-report/{id}")
-    public List<FlightDTO> runCustomReport(@PathVariable int id) {
-        List<FlightDTO> flightDTOList = null;
-
-        CustomReport customReport = customReportService.findById(id);
-
-        if (customReport != null) {
-            flightDTOList = flightService.getFlightsFromCustomReport(customReport);
-        }
-
-        return flightDTOList;
     }
 
     @PostMapping(value = "/api/flight/")
@@ -125,10 +110,10 @@ public class FlightController {
                 }
             }
 
-            if (flightDTO.getPilotInCommand() != null) {
+            /*if (flightDTO.getPilotInCommand() != null) {
                 Person person = personService.findPersonById(flightDTO.getPilotInCommand().getId());
                 flight.setPerson(person);
-            }
+            }*/
 
             if (flight.getAto() != null) {
                 flight.setAto(flight.getAto());

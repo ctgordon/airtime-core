@@ -10,6 +10,4 @@ import java.util.UUID;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Integer> {
     Optional<Person> findPersonByAppUserId(UUID appUserId);
-
-    Optional<Person> findByAuthUserId(String userId);
 }

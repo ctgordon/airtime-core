@@ -1,5 +1,14 @@
 package com.airtime.logbook_service.service.impl;
 
+import com.airtime.logbook_service.persistence.model.Ato;
+import com.airtime.logbook_service.persistence.model.Flight;
+import com.airtime.logbook_service.persistence.model.Goal;
+import com.airtime.logbook_service.persistence.model.Person;
+import com.airtime.logbook_service.service.AtoService;
+import com.airtime.logbook_service.service.FlightService;
+import com.airtime.logbook_service.service.MailService;
+import com.airtime.logbook_service.web.dto.FlightDTO;
+import com.airtime.logbook_service.web.dto.FlightSummaryDTO;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;
@@ -10,13 +19,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import com.airtime.logbook_service.persistence.model.*;
-import com.airtime.logbook_service.service.AtoService;
-import com.airtime.logbook_service.service.FlightService;
-import com.airtime.logbook_service.service.MailService;
-import com.airtime.logbook_service.service.SubscriberService;
-import com.airtime.logbook_service.web.dto.FlightDTO;
-import com.airtime.logbook_service.web.dto.FlightSummaryDTO;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
@@ -31,7 +33,6 @@ import java.util.TimeZone;
 public class MailServiceImpl implements MailService {
     private final FlightService flightService;
     private final AtoService atoService;
-    private final SubscriberService subscriberService;
     private final JavaMailSender javaMailSender;
 
     @Value("${app.email.send}")
@@ -43,10 +44,9 @@ public class MailServiceImpl implements MailService {
     @Value("${app.email.sender}")
     private String senderEmail;
 
-    public MailServiceImpl(FlightService flightService, AtoService atoService, SubscriberService subscriberService, JavaMailSender javaMailSender) {
+    public MailServiceImpl(FlightService flightService, AtoService atoService, JavaMailSender javaMailSender) {
         this.flightService = flightService;
         this.atoService = atoService;
-        this.subscriberService = subscriberService;
         this.javaMailSender = javaMailSender;
     }
 
@@ -85,7 +85,7 @@ public class MailServiceImpl implements MailService {
         return this.sendEmail(simpleMailMessage);
     }
 
-    @Override
+    /*@Override
     public void sendDailyUpdate() {
         final String subject = "Airtime: Daily flight log updates";
 
@@ -126,21 +126,6 @@ public class MailServiceImpl implements MailService {
                             content += flightTotals(flightSummaryDTO);
                             content += lastFlight(flightSummaryDTO);
                             content += timeSinceAto();
-
-                            /*if (person.getMemberships() != null) {
-                                List<Membership> membershipList = person.getMemberships().stream().filter(Membership::isInUse).toList();
-                                if (!membershipList.isEmpty()) {
-                                    content += memberships(membershipList);
-                                }
-                            }
-
-                            if (person.getGoals() != null) {
-                                List<Goal> goalList = person.getGoals().stream().filter(Goal::isInUse).toList();
-                                if (!goalList.isEmpty()) {
-                                    content += goals(goalList);
-                                }
-                            }*/
-
                             content += "<p></p>";
 
                             content += emailFooter();
@@ -155,7 +140,7 @@ public class MailServiceImpl implements MailService {
                 sendEmail(simpleMailMessage);
             });
         }
-    }
+    }*/
 
     private String browserLink() {
         return openTable() +
@@ -346,7 +331,7 @@ public class MailServiceImpl implements MailService {
         return content;
     }
 
-    private String memberships(List<Membership> memberships) {
+    /*private String memberships(List<Membership> memberships) {
         StringBuilder content = new StringBuilder();
         content.append("<div style=\"padding: 30px 0;\">");
         content.append("<h3 style=\"font-size: 28px; margin:0 0 20px 0; font-family:Arial;\"> Memberships (").append(memberships.size()).append(")</h3>");
@@ -373,7 +358,7 @@ public class MailServiceImpl implements MailService {
         }
         content.append("</div>");
         return content.toString();
-    }
+    }*/
 
     private String goals(List<Goal> goals) {
         StringBuilder content = new StringBuilder();

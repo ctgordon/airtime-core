@@ -77,7 +77,7 @@ public class TodoController {
         Timestamp timestamp = new Timestamp(date.getTime());
 
 
-        if (user != null) {
+        /*if (user != null) {
             Person person = personService.findPersonByAuthUserId(user.getAttribute("sub"));
             if (person != null) {
                 if (existingTodo != null) {
@@ -100,7 +100,7 @@ public class TodoController {
                     saved = todoService.save(todo);
                 }
             }
-        }
+        }*/
 
         return (saved) ? new ResponseEntity<>("", HttpStatus.OK) : new ResponseEntity<>("Todo not saved", HttpStatus.BAD_REQUEST);
     }
@@ -112,12 +112,12 @@ public class TodoController {
         Todo existingTodo = todoService.getTodo(id);
 
         if (user != null) {
-            Person person = personService.findPersonByAuthUserId(user.getAttribute("sub"));
+            /*Person person = personService.findPersonByAuthUserId(user.getAttribute("sub"));
             if (person != null) {
                 if (existingTodo != null) {
                     deleted = todoService.delete(existingTodo);
                 }
-            }
+            }*/
         }
 
         return (deleted) ? new ResponseEntity<>("", HttpStatus.OK) : new ResponseEntity<>("Todo not deleted", HttpStatus.BAD_REQUEST);

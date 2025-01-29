@@ -15,6 +15,6 @@ public class ScheduledEmailService {
 
     @Scheduled(cron = "0 0 9,16 * * *")
     private void emailDailyUpdate() {
-        mailService.sendDailyUpdate();
+        //mailService.sendDailyUpdate();
     }
 }

@@ -1,18 +1,20 @@
 package com.airtime.logbook_service.persistence.model;
 
+import com.airtime.logbook_service.web.dto.PersonDTO;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import com.airtime.logbook_service.web.dto.PersonDTO;
 
 import java.util.UUID;
 
 @Entity
-@Table(name = "person")
+@Table(name = "PERSON")
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @JdbcTypeCode(SqlTypes.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", columnDefinition = "uuid", unique = true)
+    private UUID id;
 
     @JdbcTypeCode(SqlTypes.UUID)
     @Column(name = "APP_USER_ID", columnDefinition = "uuid", unique = true)
@@ -27,40 +29,35 @@ public class Person {
     @Column(name = "KNOWN_AS")
     private String knownAs;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(referencedColumnName = "id", name = "PERSON_ROLE")
-    private PersonRole personRole;
-
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(referencedColumnName = "ID", name = "PERSON_ATTRIBUTE_ID")
-    private PersonAttribute personAttribute;
-
-    @Column(name = "APP_EMAIL_ADDRESS")
-    private String appEmailAddress;
-
-    @Column(name = "auth_email_address")
-    private String authEmailAddress;
-
-    @Column(name = "auth_user_id")
-    private String authUserId;
+    @JdbcTypeCode(SqlTypes.UUID)
+    @Column(name = "USER_ID")
+    private UUID userId;
 
     public Person() {
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
+    }
+
+    public UUID getAppUserId() {
+        return appUserId;
+    }
+
+    public void setAppUserId(UUID appUserId) {
+        this.appUserId = appUserId;
     }
 
     public String getForename() {
         return forename;
     }
 
-    public void setForename(String name) {
-        this.forename = name;
+    public void setForename(String forename) {
+        this.forename = forename;
     }
 
     public String getSurname() {
@@ -79,52 +76,12 @@ public class Person {
         this.knownAs = knownAs;
     }
 
-    public PersonRole getPersonRole() {
-        return personRole;
+    public UUID getUserId() {
+        return userId;
     }
 
-    public void setPersonRole(PersonRole personRole) {
-        this.personRole = personRole;
-    }
-
-    public PersonAttribute getPersonAttribute() {
-        return personAttribute;
-    }
-
-    public void setPersonAttribute(PersonAttribute personAttribute) {
-        this.personAttribute = personAttribute;
-    }
-
-    public UUID getAppUserId() {
-        return appUserId;
-    }
-
-    public void setAppUserId(UUID uuid) {
-        this.appUserId = uuid;
-    }
-
-    public String getAppEmailAddress() {
-        return appEmailAddress;
-    }
-
-    public void setAppEmailAddress(String emailAddress) {
-        this.appEmailAddress = emailAddress;
-    }
-
-    public String getAuthEmailAddress() {
-        return authEmailAddress;
-    }
-
-    public void setAuthEmailAddress(String authEmailAddress) {
-        this.authEmailAddress = authEmailAddress;
-    }
-
-    public String getAuthUserId() {
-        return authUserId;
-    }
-
-    public void setAuthUserId(String authUserId) {
-        this.authUserId = authUserId;
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
     public PersonDTO dto() {
@@ -134,10 +91,6 @@ public class Person {
                 .surname(this.getSurname())
                 .knownAs(this.getKnownAs())
                 .appUserId(this.getAppUserId())
-                .appEmailAddress(this.getAppEmailAddress())
-                .authEmailAddress(this.getAuthEmailAddress())
-                .personAttribute(this.getPersonAttribute())
-                .personRole(this.getPersonRole())
                 .build();
     }
 }
