@@ -23,4 +23,6 @@ public class PersonDTO {
     private UUID appUserId;
     private String appEmailAddress;
     private String authEmailAddress;
+    private boolean inUse;
+    private User user;
 }

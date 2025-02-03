@@ -1,6 +1,7 @@
 package com.airtime.logbook_service.persistence.model;
 
 import com.airtime.logbook_service.web.dto.PersonDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -16,10 +17,6 @@ public class Person {
     @Column(name = "id", columnDefinition = "uuid", unique = true)
     private UUID id;
 
-    @JdbcTypeCode(SqlTypes.UUID)
-    @Column(name = "APP_USER_ID", columnDefinition = "uuid", unique = true)
-    private UUID appUserId;
-
     @Column(name = "FORENAME")
     private String forename;
 
@@ -30,8 +27,16 @@ public class Person {
     private String knownAs;
 
     @JdbcTypeCode(SqlTypes.UUID)
-    @Column(name = "USER_ID")
+    @Column(name = "USER_ID", columnDefinition = "uuid", unique = true)
     private UUID userId;
+
+    @Column(name = "IN_USE")
+    private boolean inUse;
+
+    /*@JsonIgnore
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
+    private User user;*/
 
     public Person() {
     }
@@ -42,14 +47,6 @@ public class Person {
 
     public void setId(UUID id) {
         this.id = id;
-    }
-
-    public UUID getAppUserId() {
-        return appUserId;
-    }
-
-    public void setAppUserId(UUID appUserId) {
-        this.appUserId = appUserId;
     }
 
     public String getForename() {
@@ -84,13 +81,21 @@ public class Person {
         this.userId = userId;
     }
 
+    public boolean isInUse() {
+        return inUse;
+    }
+
+    public void setInUse(boolean inUse) {
+        this.inUse = inUse;
+    }
+
     public PersonDTO dto() {
         return PersonDTO.builder()
                 .id(this.getId())
                 .forename(this.getForename())
                 .surname(this.getSurname())
                 .knownAs(this.getKnownAs())
-                .appUserId(this.getAppUserId())
+                .inUse(this.isInUse())
                 .build();
     }
 }
