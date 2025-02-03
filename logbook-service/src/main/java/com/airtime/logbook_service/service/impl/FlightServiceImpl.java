@@ -34,21 +34,6 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public List<Flight> getAllFlightsByOwner(Person person) {
-        return flightRepository.findFlightByOwnerId(person.getAppUserId());
-    }
-
-    @Override
-    public List<FlightDTO> getAllFlightsDTO(List<Flight> flights) {
-        List<FlightDTO> flightDTOList = new ArrayList<>();
-        if (!flights.isEmpty()) {
-            flights.forEach(flight -> flightDTOList.add(flight.dto()));
-        }
-
-        return flightDTOList;
-    }
-
-    @Override
     public boolean save(Flight flight) {
         boolean saved = false;
         try {

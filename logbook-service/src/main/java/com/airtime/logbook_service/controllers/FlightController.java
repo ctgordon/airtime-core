@@ -23,15 +23,15 @@ import java.util.UUID;
 public class FlightController {
     private final FlightService flightService;
     private final AircraftService aircraftService;
-    private final PersonService personService;
+    private final ProfileService profileService;
     private final AirportService airportService;
     private final ClientRegistration registration;
 
-    public FlightController(ClientRegistrationRepository registrations, FlightService flightService, AircraftService aircraftService, PersonService personService, AirportService airportService) {
+    public FlightController(ClientRegistrationRepository registrations, FlightService flightService, AircraftService aircraftService, ProfileService profileService, AirportService airportService) {
         this.registration = registrations.findByRegistrationId("okta");
         this.flightService = flightService;
         this.aircraftService = aircraftService;
-        this.personService = personService;
+        this.profileService = profileService;
         this.airportService = airportService;
     }
 
@@ -159,11 +159,7 @@ public class FlightController {
             }
 
 
-            Person person = personService.findPersonByName("Christopher Gordon");
-
-            if (person != null) {
-                flight.setOwnerId(person.getAppUserId());
-            }
+            Profile profile = profileService.findPersonByName("Christopher Gordon");
 
             flight.setUpdatedBy("chris.gordon");
             flight.setUpdatedDate(timestamp);

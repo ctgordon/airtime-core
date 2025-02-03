@@ -1,7 +1,6 @@
 package com.airtime.logbook_service.persistence.model;
 
-import com.airtime.logbook_service.web.dto.PersonDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.airtime.logbook_service.web.dto.ProfileDTO;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -9,8 +8,8 @@ import org.hibernate.type.SqlTypes;
 import java.util.UUID;
 
 @Entity
-@Table(name = "PERSON")
-public class Person {
+@Table(name = "PROFILE")
+public class Profile {
     @Id
     @JdbcTypeCode(SqlTypes.UUID)
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -38,7 +37,7 @@ public class Person {
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private User user;*/
 
-    public Person() {
+    public Profile() {
     }
 
     public UUID getId() {
@@ -89,12 +88,13 @@ public class Person {
         this.inUse = inUse;
     }
 
-    public PersonDTO dto() {
-        return PersonDTO.builder()
+    public ProfileDTO dto() {
+        return ProfileDTO.builder()
                 .id(this.getId())
                 .forename(this.getForename())
                 .surname(this.getSurname())
                 .knownAs(this.getKnownAs())
+                .userId(this.getUserId())
                 .inUse(this.isInUse())
                 .build();
     }

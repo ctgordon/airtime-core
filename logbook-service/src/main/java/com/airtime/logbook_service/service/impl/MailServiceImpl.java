@@ -3,7 +3,7 @@ package com.airtime.logbook_service.service.impl;
 import com.airtime.logbook_service.persistence.model.Ato;
 import com.airtime.logbook_service.persistence.model.Flight;
 import com.airtime.logbook_service.persistence.model.Goal;
-import com.airtime.logbook_service.persistence.model.Person;
+import com.airtime.logbook_service.persistence.model.Profile;
 import com.airtime.logbook_service.service.AtoService;
 import com.airtime.logbook_service.service.FlightService;
 import com.airtime.logbook_service.service.MailService;
@@ -164,11 +164,11 @@ public class MailServiceImpl implements MailService {
                 "  </table>";
     }
 
-    private String emailIntro(Person person) {
+    private String emailIntro(Profile profile) {
         return openTable() +
                 "     <tr>\n" +
                 "       <td style=\"padding: 30px 0;\">\n" +
-                "        <h2 style=\"font-size: 28px; margin:0 0 20px 0; font-family:Arial;\"> Hello, " + person.getForename() + ".</h2>\n" +
+                "        <h2 style=\"font-size: 28px; margin:0 0 20px 0; font-family:Arial;\"> Hello, " + profile.getForename() + ".</h2>\n" +
                 "         <p style=\"margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial\">Ut eget semper libero. Vestibulum non maximus nisl, ut iaculis ante. Nunc arcu elit, cursus eget urna et, tempus aliquam eros. Ut eget semper libero. Vestibulum non maximus nisl, ut iaculis ante. Nunc arcu elit, cursus eget urna et, tempus aliquam eros.</p>\n" +
                 "           <p style=\"margin:0;font-size:16px;line-height:24px;font-family:Arial;\"><a href=\"#\" style=\"color:#FF7A59;text-decoration:underline;\">Learn more</a></p>\n" +
                 "         </td> \n" +

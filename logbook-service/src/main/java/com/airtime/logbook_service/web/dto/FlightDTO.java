@@ -18,7 +18,7 @@ public class FlightDTO {
     private int id;
     private UUID uuid;
     private AircraftDTO aircraft;
-    private PersonDTO pilotInCommand;
+    private ProfileDTO pilotInCommand;
     private AirportDTO departureAirport;
     private AirportDTO arrivalAirport;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")

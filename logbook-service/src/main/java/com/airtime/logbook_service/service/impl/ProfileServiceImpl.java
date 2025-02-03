@@ -1,45 +1,45 @@
 package com.airtime.logbook_service.service.impl;
 
-import com.airtime.logbook_service.persistence.dao.PersonRepository;
+import com.airtime.logbook_service.persistence.dao.ProfileRepository;
 import com.airtime.logbook_service.persistence.model.Profile;
-import com.airtime.logbook_service.service.PersonService;
-import com.airtime.logbook_service.web.dto.PersonDTO;
+import com.airtime.logbook_service.service.ProfileService;
+import com.airtime.logbook_service.web.dto.ProfileDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-@Service("personService")
-public class PersonServiceImpl implements PersonService {
+@Service("profileService")
+public class ProfileServiceImpl implements ProfileService {
 
-    private final PersonRepository personRepository;
+    private final ProfileRepository profileRepository;
 
-    public PersonServiceImpl(PersonRepository personRepository) {
-        this.personRepository = personRepository;
+    public ProfileServiceImpl(ProfileRepository profileRepository) {
+        this.profileRepository = profileRepository;
     }
 
     @Override
     public List<Profile> findAll() {
-        return this.personRepository.findAll();
+        return this.profileRepository.findAll();
     }
 
     @Override
-    public List<PersonDTO> findAllPeople() {
-        List<PersonDTO> personDTOList = new ArrayList<>();
-        List<Profile> people = this.personRepository.findAll();
+    public List<ProfileDTO> findAllPeople() {
+        List<ProfileDTO> profileDTOList = new ArrayList<>();
+        List<Profile> people = this.profileRepository.findAll();
 
         if (!people.isEmpty()) {
             people = people.stream().filter(Profile::isInUse).toList();
-            people.forEach(person -> personDTOList.add(person.dto()));
+            people.forEach(person -> profileDTOList.add(person.dto()));
         }
 
-        return personDTOList;
+        return profileDTOList;
     }
 
     @Override
     public boolean save(Profile profile) {
         boolean saved = false;
         try {
-            this.personRepository.save(profile);
+            this.profileRepository.save(profile);
             saved = true;
         } catch (Exception e) {
             System.out.println(e);
@@ -51,7 +51,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Profile findPersonById(UUID id) {
         Profile profile = null;
-        Optional<Profile> optional = personRepository.findById(id);
+        Optional<Profile> optional = profileRepository.findById(id);
         if (optional.isPresent()) {
             profile = optional.get();
         }
@@ -61,7 +61,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Profile findPersonByUserId(UUID userId) {
         Profile profile = null;
-        Optional<Profile> optional = Optional.ofNullable(personRepository.findByUserId(userId));
+        Optional<Profile> optional = Optional.ofNullable(profileRepository.findByUserId(userId));
         if (optional.isPresent()) {
             profile = optional.get();
         }

@@ -7,10 +7,10 @@
 		<artifactId>airtime-core</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>person-service</artifactId>
+	<artifactId>profile-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>person-service</name>
+	<name>profile-service</name>
 	<description>Person Microservice</description>
 	<url/>
 	<licenses>

@@ -1,10 +1,8 @@
 package com.airtime.logbook_service.spring.config;
 
-import com.airtime.logbook_service.persistence.model.Person;
 import com.airtime.logbook_service.persistence.model.User;
 import com.airtime.logbook_service.persistence.model.UserRole;
 import com.airtime.logbook_service.service.UserRoleService;
-import com.airtime.logbook_service.service.PersonService;
 import com.airtime.logbook_service.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

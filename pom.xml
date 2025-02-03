@@ -33,7 +33,7 @@
         <module>todo-service</module>
         <module>lottery-service</module>
         <module>logbook-service</module>
-        <module>person-service</module>
+        <module>profile-service</module>
     </modules>
     <scm>
         <connection/>

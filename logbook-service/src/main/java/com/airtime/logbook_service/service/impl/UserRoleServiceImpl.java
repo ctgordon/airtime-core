@@ -23,7 +23,26 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public void save(UserRole userRole) {
-        this.userRoleRepository.save(userRole);
+    public boolean save(UserRole userRole) {
+        boolean saved = false;
+        try {
+            this.userRoleRepository.save(userRole);
+            saved = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return saved;
+    }
+
+    @Override
+    public boolean delete(UserRole userRole) {
+        boolean deleted = false;
+        try {
+            this.userRoleRepository.delete(userRole);
+            deleted = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return deleted;
     }
 }

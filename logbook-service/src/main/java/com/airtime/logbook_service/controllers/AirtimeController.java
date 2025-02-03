@@ -3,7 +3,6 @@ package com.airtime.logbook_service.controllers;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.airtime.logbook_service.persistence.model.Person;
 import com.airtime.logbook_service.service.*;
 import com.airtime.logbook_service.web.dto.*;
 
@@ -12,21 +11,21 @@ import java.util.List;
 @RestController
 @RequestMapping("api/airtime/")
 public class AirtimeController {
-    private final PersonService personService;
+    private final ProfileService profileService;
     private final FlightService flightService;
     private final AircraftService aircraftService;
     private final AircraftTypeService aircraftTypeService;
     private final AirportService airportService;
     private final AtoService atoService;
 
-    public AirtimeController(PersonService personService,
+    public AirtimeController(ProfileService profileService,
                              FlightService flightService,
                              AircraftService aircraftService,
                              AirportService airportService,
                              AtoService atoService,
                              AircraftTypeService aircraftTypeService
     ) {
-        this.personService = personService;
+        this.profileService = profileService;
         this.flightService = flightService;
         this.aircraftService = aircraftService;
         this.airportService = airportService;
@@ -34,11 +33,11 @@ public class AirtimeController {
         this.aircraftTypeService = aircraftTypeService;
     }
 
-    @GetMapping(value = "person")
+    /*@GetMapping(value = "person")
     public PersonDTO getPerson() {
         Person person = this.personService.findPersonById(1);
         return person.dto();
-    }
+    }*/
 
     /*@GetMapping(value = "flights")
     public List<FlightDTO> getFlights(@AuthenticationPrincipal OAuth2User user) {
@@ -72,7 +71,7 @@ public class AirtimeController {
     }
 
     @GetMapping(value = "people")
-    public List<PersonDTO> getPeople() {
-        return this.personService.findAllPeople();
+    public List<ProfileDTO> getPeople() {
+        return this.profileService.findAllPeople();
     }
 }

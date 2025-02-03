@@ -12,10 +12,6 @@ public interface FlightService {
 
     List<Flight> getAllFlights();
 
-    List<Flight> getAllFlightsByOwner(Person person);
-
-    List<FlightDTO> getAllFlightsDTO(List<Flight> flights);
-
     boolean save(Flight flight);
 
     Flight findFlightById(int id);
@@ -29,8 +25,5 @@ public interface FlightService {
     FlightSummaryDTO getFlightSummary(List<Flight> flightList);
 
     List<Flight> getFlightsBetween();
-
-    //List<FlightDTO> getFlightsFromCustomReport(CustomReport customReport);
-
     List<Flight> getFlightsFromGoal(Goal goal);
 }

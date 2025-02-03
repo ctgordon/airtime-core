@@ -6,5 +6,5 @@ import com.airtime.logbook_service.persistence.model.User;
 import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
-    User findUserByUserId(String userId);
+    User findUserByAuthId(String userId);
 }

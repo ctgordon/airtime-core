@@ -32,7 +32,7 @@ public class Flight {
 
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "pilot_in_command", referencedColumnName = "id")
-    private Person person;
+    private Profile profile;
 
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(cascade = CascadeType.MERGE)
@@ -118,12 +118,12 @@ public class Flight {
         this.aircraft = aircraft;
     }
 
-    public Person getPerson() {
-        return person;
+    public Profile getPerson() {
+        return profile;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setPerson(Profile profile) {
+        this.profile = profile;
     }
 
     public Airport getDepartureAirport() {
@@ -235,12 +235,12 @@ public class Flight {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Flight flight = (Flight) o;
-        return id == flight.id && Objects.equals(aircraft, flight.aircraft) && Objects.equals(person, flight.person) && Objects.equals(departureAirport, flight.departureAirport) && Objects.equals(arrivalAirport, flight.arrivalAirport) && Objects.equals(remarks, flight.remarks) && Objects.equals(departureDatetime, flight.departureDatetime) && Objects.equals(arrivalDatetime, flight.arrivalDatetime);
+        return id == flight.id && Objects.equals(aircraft, flight.aircraft) && Objects.equals(profile, flight.profile) && Objects.equals(departureAirport, flight.departureAirport) && Objects.equals(arrivalAirport, flight.arrivalAirport) && Objects.equals(remarks, flight.remarks) && Objects.equals(departureDatetime, flight.departureDatetime) && Objects.equals(arrivalDatetime, flight.arrivalDatetime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, uuid, aircraft, person, departureAirport, arrivalAirport, remarks, departureDatetime, arrivalDatetime, createdBy, createdDate, updatedBy, updatedDate, flightTimeMinutes);
+        return Objects.hash(id, uuid, aircraft, profile, departureAirport, arrivalAirport, remarks, departureDatetime, arrivalDatetime, createdBy, createdDate, updatedBy, updatedDate, flightTimeMinutes);
     }
 
     public FlightDTO dto() {

@@ -1,19 +1,13 @@
 package com.airtime.logbook_service.controllers;
 
-import com.airtime.logbook_service.persistence.model.Person;
-import com.airtime.logbook_service.persistence.model.User;
-import com.airtime.logbook_service.service.PersonService;
+import com.airtime.logbook_service.service.ProfileService;
 import com.airtime.logbook_service.service.UserService;
-import com.airtime.logbook_service.web.dto.PersonDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.airtime.logbook_service.service.MailService;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.List;
 
 @Controller
 public class HomeController {
@@ -21,12 +15,12 @@ public class HomeController {
     private String appName;
 
     private final MailService mailService;
-    private final PersonService personService;
+    private final ProfileService profileService;
     private final UserService userService;
 
-    public HomeController(MailService mailService, PersonService personService, UserService userService) {
+    public HomeController(MailService mailService, ProfileService profileService, UserService userService) {
         this.mailService = mailService;
-        this.personService = personService;
+        this.profileService = profileService;
         this.userService = userService;
     }
 

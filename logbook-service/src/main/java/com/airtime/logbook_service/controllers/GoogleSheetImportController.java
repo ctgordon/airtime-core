@@ -1,5 +1,6 @@
 package com.airtime.logbook_service.controllers;
 
+import com.airtime.logbook_service.persistence.model.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -10,11 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.airtime.logbook_service.persistence.model.Aircraft;
 import com.airtime.logbook_service.persistence.model.Airport;
 import com.airtime.logbook_service.persistence.model.Flight;
-import com.airtime.logbook_service.persistence.model.Person;
 import com.airtime.logbook_service.service.AircraftService;
 import com.airtime.logbook_service.service.AirportService;
 import com.airtime.logbook_service.service.FlightService;
-import com.airtime.logbook_service.service.PersonService;
+import com.airtime.logbook_service.service.ProfileService;
 import com.airtime.logbook_service.web.dto.GoogleSheetEntryDTO;
 
 import java.util.List;
@@ -23,14 +23,14 @@ import java.util.List;
 @RestController
 public class GoogleSheetImportController {
     private final FlightService flightService;
-    private final PersonService personService;
+    private final ProfileService profileService;
     private final AircraftService aircraftService;
 
     private final AirportService airportService;
 
-    public GoogleSheetImportController(FlightService flightService, PersonService personService, AircraftService aircraftService, AirportService airportService) {
+    public GoogleSheetImportController(FlightService flightService, ProfileService profileService, AircraftService aircraftService, AirportService airportService) {
         this.flightService = flightService;
-        this.personService = personService;
+        this.profileService = profileService;
         this.aircraftService = aircraftService;
         this.airportService = airportService;
     }
@@ -48,17 +48,17 @@ public class GoogleSheetImportController {
                     flight.setDepartureDatetime(entry.getDepartureDatetime());
                     flight.setArrivalDatetime(entry.getArrivalDatetime());
 
-                    Person person = null;
+                    Profile profile = null;
 
                     if (entry.getPic() != null) {
-                        Person existingPerson = personService.findPersonByName(entry.getPic());
+                        Profile existingProfile = profileService.findPersonByName(entry.getPic());
 
-                        if (existingPerson != null) {
-                            person = existingPerson;
+                        if (existingProfile != null) {
+                            profile = existingProfile;
                         }
                     }
 
-                    flight.setPerson(person);
+                    flight.setPerson(profile);
 
                     Aircraft aircraft = null;
 

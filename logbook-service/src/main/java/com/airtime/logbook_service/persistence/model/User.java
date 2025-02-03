@@ -2,6 +2,8 @@ package com.airtime.logbook_service.persistence.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.type.SqlTypes;
 
 import java.util.List;
@@ -16,8 +18,8 @@ public class User {
     @Column(name = "id", columnDefinition = "uuid", unique = true)
     private UUID id;
 
-    @Column(name = "USER_ID")
-    private String userId;
+    @Column(name = "AUTH_ID")
+    private String authId;
 
     @Column(name = "EMAIL_ADDRESS")
     private String emailAddress;
@@ -28,8 +30,13 @@ public class User {
     @OneToMany
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     private List<UserRole> userRoles;
+    /*@NotFound(action = NotFoundAction.IGNORE)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Person person;*/
 
-    public User() {}
+    public User() {
+    }
 
     public UUID getId() {
         return id;
@@ -39,12 +46,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getAuthId() {
+        return authId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setAuthId(String userId) {
+        this.authId = userId;
     }
 
     public String getEmailAddress() {
@@ -70,4 +77,12 @@ public class User {
     public void setUserRoles(List<UserRole> userRoles) {
         this.userRoles = userRoles;
     }
+
+    /*public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }*/
 }

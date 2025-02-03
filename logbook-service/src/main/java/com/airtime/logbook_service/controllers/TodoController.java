@@ -6,17 +6,14 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import com.airtime.logbook_service.persistence.model.Person;
 import com.airtime.logbook_service.persistence.model.Todo;
-import com.airtime.logbook_service.service.PersonService;
+import com.airtime.logbook_service.service.ProfileService;
 import com.airtime.logbook_service.service.TodoService;
 import com.airtime.logbook_service.service.TodoStatusService;
 import com.airtime.logbook_service.web.dto.TodoDTO;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = "*")
@@ -24,12 +21,12 @@ import java.util.UUID;
 @RequestMapping("api/airtime/")
 public class TodoController {
     private final TodoService todoService;
-    private final PersonService personService;
+    private final ProfileService profileService;
     private final TodoStatusService todoStatusService;
 
-    public TodoController(TodoService todoService, PersonService personService, TodoStatusService todoStatusService) {
+    public TodoController(TodoService todoService, ProfileService profileService, TodoStatusService todoStatusService) {
         this.todoService = todoService;
-        this.personService = personService;
+        this.profileService = profileService;
         this.todoStatusService = todoStatusService;
     }
 

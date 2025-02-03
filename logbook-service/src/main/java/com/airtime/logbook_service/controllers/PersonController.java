@@ -1,16 +1,12 @@
 package com.airtime.logbook_service.controllers;
 
-import com.airtime.logbook_service.persistence.model.Person;
-import com.airtime.logbook_service.service.PersonService;
-import com.airtime.logbook_service.web.dto.PersonDTO;
+import com.airtime.logbook_service.persistence.model.Profile;
+import com.airtime.logbook_service.service.ProfileService;
+import com.airtime.logbook_service.web.dto.ProfileDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,33 +17,24 @@ import java.util.UUID;
 @RestController
 public class PersonController {
 
-    private final PersonService personService;
+    private final ProfileService profileService;
 
-    public PersonController(PersonService personService) {
-        this.personService = personService;
+    public PersonController(ProfileService profileService) {
+        this.profileService = profileService;
     }
 
-    @GetMapping(value = "/api/people")
-    public List<PersonDTO> findAllPeople() {
-        return personService.findAllPeople();
+    @Secured("ROLE_SUPER_ADMIN")
+    @GetMapping(value = "/api/private/people")
+    public List<ProfileDTO> findAllPeople() {
+        return profileService.findAllPeople();
     }
 
     @GetMapping(value = "/api/private/person")
-    public ResponseEntity<PersonDTO> person(Authentication authentication) {
+    public ResponseEntity<ProfileDTO> person(Authentication authentication) {
         System.out.println(authentication.getAuthorities());
-        Person person = null;
+        Profile profile = null;
         //Person person = personService.findPersonByAuthUserId(authentication.getName());
-        return (person != null ? new ResponseEntity<>(person.dto(), HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
-    }
-
-    @GetMapping(value = "/api/person/{uuid}")
-    public PersonDTO findPersonById(@PathVariable("uuid") final UUID uuid) {
-        Person person = personService.findPersonByUuid(uuid);
-        PersonDTO personDTO = null;
-        if (person != null) {
-            personDTO = person.dto();
-        }
-        return personDTO;
+        return (profile != null ? new ResponseEntity<>(profile.dto(), HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping(value = "/api/person/{uuid}")
@@ -57,7 +44,7 @@ public class PersonController {
     }
 
     @PostMapping(value = "/api/person")
-    public ResponseEntity<String> addPerson(@RequestBody @Validated PersonDTO personDTO, Authentication authentication) {
+    public ResponseEntity<String> addPerson(@RequestBody @Validated ProfileDTO profileDTO, Authentication authentication) {
         boolean saved = false;
         UUID uuid = UUID.randomUUID();
 

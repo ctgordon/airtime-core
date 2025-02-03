@@ -31,12 +31,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByUserId(String userId) {
-        return this.userRepository.findUserByUserId(userId);
+        return this.userRepository.findUserByAuthId(userId);
     }
 
     @Override
     public List<User> findAll() {
-        return this.userRepository.findAll();
+        return userRepository.findAll();
     }
 
     @Override

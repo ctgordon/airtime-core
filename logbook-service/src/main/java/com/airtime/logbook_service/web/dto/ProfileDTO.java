@@ -13,16 +13,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PersonDTO {
+public class ProfileDTO {
     private UUID id;
     private String forename;
     private String surname;
     private String knownAs;
-    private Collection<UserRole> personRoles;
-    private PersonAttribute personAttribute;
-    private UUID appUserId;
-    private String appEmailAddress;
-    private String authEmailAddress;
+    private UUID userId;
     private boolean inUse;
-    private User user;
 }

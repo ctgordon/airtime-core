@@ -7,5 +7,8 @@ import java.util.UUID;
 
 public interface UserRoleService {
     List<UserRole> findByUserId(UUID personId);
-    void save(UserRole userRole);
+
+    boolean save(UserRole userRole);
+
+    boolean delete(UserRole userRole);
 }
