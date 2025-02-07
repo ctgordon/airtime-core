@@ -25,9 +25,9 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public List<TodoDTO> getTodos() {
+    public List<TodoDTO> getTodos(UUID userId) {
         List<TodoDTO> todoDTOList = new ArrayList<>();
-        List<Todo> todoList = todoRepository.findAll();
+        List<Todo> todoList = todoRepository.findAllByUserId(userId);
 
         if (!todoList.isEmpty()) {
             todoList.forEach(todo -> {

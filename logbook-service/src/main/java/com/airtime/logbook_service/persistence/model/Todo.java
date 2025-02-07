@@ -36,8 +36,8 @@ public class Todo {
     private Timestamp updatedDate;
 
     @Basic
-    @Column(name = "owner_id")
-    private UUID ownerId;
+    @Column(name = "user_id")
+    private UUID userId;
 
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "status", referencedColumnName = "id")
@@ -106,12 +106,12 @@ public class Todo {
         this.updatedDate = updatedDate;
     }
 
-    public UUID getOwnerId() {
-        return ownerId;
+    public UUID getUserId() {
+        return userId;
     }
 
-    public void setOwnerId(UUID ownerId) {
-        this.ownerId = ownerId;
+    public void setUserId(UUID ownerId) {
+        this.userId = ownerId;
     }
 
     public TodoStatus getTodoStatus() {

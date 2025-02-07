@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface TodoService {
     List<Todo> getRawTodos();
 
-    List<TodoDTO> getTodos();
+    List<TodoDTO> getTodos(UUID userId);
 
     Todo getTodo(UUID uuid);
 

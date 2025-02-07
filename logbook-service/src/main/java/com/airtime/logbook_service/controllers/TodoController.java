@@ -1,5 +1,7 @@
 package com.airtime.logbook_service.controllers;
 
+import com.airtime.logbook_service.persistence.model.User;
+import com.airtime.logbook_service.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,42 +15,37 @@ import com.airtime.logbook_service.service.TodoStatusService;
 import com.airtime.logbook_service.web.dto.TodoDTO;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = "*")
 @RestController
-@RequestMapping("api/airtime/")
 public class TodoController {
     private final TodoService todoService;
     private final ProfileService profileService;
     private final TodoStatusService todoStatusService;
 
-    public TodoController(TodoService todoService, ProfileService profileService, TodoStatusService todoStatusService) {
+    private final UserService userService;
+
+    public TodoController(TodoService todoService, ProfileService profileService, TodoStatusService todoStatusService, UserService userService) {
         this.todoService = todoService;
         this.profileService = profileService;
         this.todoStatusService = todoStatusService;
+        this.userService = userService;
     }
 
-    /*@GetMapping(value = "todo")
+    @GetMapping(value = "/api/private/todo")
     public ResponseEntity<List<TodoDTO>> findAllTodo(@AuthenticationPrincipal OAuth2User user) {
-        List<TodoDTO> todoDTOList = new ArrayList<>();
-        if (user != null) {
-            Person person = personService.findPersonByAuthUserId(user.getAttribute("sub"));
-            if (person != null) {
-                List<Todo> todoList = person.getTodoList();
-                if (!todoList.isEmpty()) {
-                    for (Todo todo : todoList) {
-                        if (todo != null) {
-                            todoDTOList.add(todo.dto());
-                        }
-                    }
-                }
-            }
+        List<TodoDTO> todoDTOList = null;
+        User appUser = userService.findUserByAuthId(user.getAttribute("sub"));
+        if (appUser != null) {
+            todoDTOList = todoService.getTodos(appUser.getId());
         }
 
         return new ResponseEntity<>(todoDTOList, HttpStatus.OK);
-    }*/
+    }
 
     @GetMapping(value = "todo/{id}")
     public ResponseEntity<TodoDTO> findTodoById(@AuthenticationPrincipal OAuth2User user, @PathVariable("id") final UUID id) {
@@ -102,7 +99,7 @@ public class TodoController {
         return (saved) ? new ResponseEntity<>("", HttpStatus.OK) : new ResponseEntity<>("Todo not saved", HttpStatus.BAD_REQUEST);
     }
 
-    @DeleteMapping(value = "todo/{id}")
+    @DeleteMapping(value = "/api/private/todo/{id}")
     public ResponseEntity<String> deleteTodo(@AuthenticationPrincipal OAuth2User user, @PathVariable("id") final UUID id) {
         boolean deleted = false;
 

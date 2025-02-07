@@ -132,7 +132,7 @@ public class WebSecurityConfig {
             OAuth2AccessToken accessToken = userRequest.getAccessToken();
             Set<GrantedAuthority> mappedAuthorities = new HashSet<>();
 
-            User user = this.userService.findUserByUserId(oidcUser.getUserInfo().getSubject());
+            User user = this.userService.findUserByAuthId(oidcUser.getUserInfo().getSubject());
 
             if (user != null) {
                 List<UserRole> userRoleList = userRoleService.findByUserId(user.getId());
