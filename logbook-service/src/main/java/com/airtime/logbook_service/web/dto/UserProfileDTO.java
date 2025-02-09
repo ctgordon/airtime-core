@@ -5,6 +5,8 @@ import com.airtime.logbook_service.persistence.model.User;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Jacksonized
@@ -12,6 +14,7 @@ import lombok.extern.jackson.Jacksonized;
 @AllArgsConstructor
 @Builder
 public class UserProfileDTO {
+    private UUID id;
     private User user;
     private Profile profile;
 }

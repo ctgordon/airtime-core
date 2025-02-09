@@ -58,12 +58,12 @@ public class UserController {
         return (userList != null ? new ResponseEntity<>(userList, HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
     }
 
-    @Secured("ROLE_SUPER_ADMIN")
+    /*@Secured("ROLE_SUPER_ADMIN")
     @GetMapping(value = "/api/private/user-profiles")
     public ResponseEntity<List<UserProfileDTO>> getUserProfiles() {
         List<UserProfileDTO> userProfileDTOList = userProfileService.findAllUserProfiles();
         return (userProfileDTOList != null ? new ResponseEntity<>(userProfileDTOList, HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
-    }
+    }*/
 
     @Secured("ROLE_SUPER_ADMIN")
     @GetMapping(value = "/api/private/users/{id}")

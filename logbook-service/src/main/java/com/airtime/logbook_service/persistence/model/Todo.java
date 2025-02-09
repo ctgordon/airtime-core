@@ -19,6 +19,10 @@ public class Todo {
     @Basic
     @Column(name = "description")
     private String description;
+
+    @Basic
+    @Column(name = "title")
+    private String title;
     //@Basic
     //@Column(name = "status")
     //private int status;
@@ -72,6 +76,14 @@ public class Todo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public UUID getCreatedBy() {
