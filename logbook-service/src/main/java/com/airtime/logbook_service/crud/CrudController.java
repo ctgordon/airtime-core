@@ -3,8 +3,6 @@ package com.airtime.logbook_service.controllers;
 import com.airtime.logbook_service.service.CrudService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -18,7 +16,7 @@ public abstract class CrudController<T, ID> {
     }
 
     @GetMapping("/all")
-    public Iterable<T> getAll(@AuthenticationPrincipal OAuth2User user) {
+    public Iterable<T> getAll() {
         return service.getAll();
     }
 
