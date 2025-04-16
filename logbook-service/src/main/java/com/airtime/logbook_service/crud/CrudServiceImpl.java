@@ -1,6 +1,5 @@
-package com.airtime.logbook_service.service.impl;
+package com.airtime.logbook_service.crud;
 
-import com.airtime.logbook_service.service.CrudService;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

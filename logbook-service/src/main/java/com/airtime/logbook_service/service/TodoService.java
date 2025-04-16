@@ -1,6 +1,6 @@
 package com.airtime.logbook_service.service;
 
-import com.airtime.logbook_service.service.impl.CrudServiceImpl;
+import com.airtime.logbook_service.crud.CrudServiceImpl;
 import org.springframework.stereotype.Service;
 import com.airtime.logbook_service.persistence.dao.TodoRepository;
 import com.airtime.logbook_service.persistence.model.Todo;

@@ -1,4 +1,4 @@
-package com.airtime.logbook_service.service;
+package com.airtime.logbook_service.crud;
 
 import java.util.Optional;
 

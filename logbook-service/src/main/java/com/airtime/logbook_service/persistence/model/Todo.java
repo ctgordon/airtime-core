@@ -43,9 +43,17 @@ public class Todo {
     @Column(name = "user_id")
     private UUID userId;
 
+    @Basic
+    @Column(name = "priority")
+    private int priority;
+
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "status", referencedColumnName = "id")
     private TodoStatus todoStatus;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+    private Profile profile;
 
     public Todo() {
     }
@@ -126,11 +134,27 @@ public class Todo {
         this.userId = ownerId;
     }
 
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
     public TodoStatus getTodoStatus() {
         return todoStatus;
     }
 
     public void setTodoStatus(TodoStatus todoStatus) {
         this.todoStatus = todoStatus;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }

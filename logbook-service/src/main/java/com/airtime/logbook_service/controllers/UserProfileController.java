@@ -1,7 +1,8 @@
 package com.airtime.logbook_service.controllers;
 
+import com.airtime.logbook_service.crud.CrudController;
 import com.airtime.logbook_service.persistence.model.UserProfile;
-import com.airtime.logbook_service.service.CrudService;
+import com.airtime.logbook_service.crud.CrudService;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,6 +1,5 @@
-package com.airtime.logbook_service.controllers;
+package com.airtime.logbook_service.crud;
 
-import com.airtime.logbook_service.service.CrudService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

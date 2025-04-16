@@ -2,7 +2,7 @@ package com.airtime.logbook_service.service;
 
 import com.airtime.logbook_service.persistence.dao.TodoStatusRepository;
 import com.airtime.logbook_service.persistence.model.TodoStatus;
-import com.airtime.logbook_service.service.impl.CrudServiceImpl;
+import com.airtime.logbook_service.crud.CrudServiceImpl;
 import org.springframework.stereotype.Repository;
 
 @Repository("todoStatusService")

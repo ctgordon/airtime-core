@@ -221,28 +221,6 @@ public class MailServiceImpl implements MailService {
         return content;
     }
 
-    private String timeSinceAto() {
-        StringBuilder content = new StringBuilder();
-        List<Ato> atoList = atoService.atoList();
-
-        if (atoList != null && !atoList.isEmpty()) {
-            for (Ato ato : atoList) {
-                if (ato.isInUse()) {
-                    FlightDTO flightDTO = flightService.getLatestFlightByAto(ato);
-
-                    if (flightDTO != null) {
-                        content.append("<div style=\"padding: 30px 0 30px 0;\">");
-                        content.append("<h3 style=\"font-size: 28px; margin:0 0 20px 0; font-family:Arial;\"> Last flight with ").append(ato.getName()).append("</h3>");
-                        content.append(flightDetails(flightDTO));
-                        content.append("</div>");
-                    }
-                }
-            }
-        }
-
-        return content.toString();
-    }
-
     private String flightDetails(FlightDTO flightDTO) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss a z");
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -359,40 +337,6 @@ public class MailServiceImpl implements MailService {
         content.append("</div>");
         return content.toString();
     }*/
-
-    private String goals(List<Goal> goals) {
-        StringBuilder content = new StringBuilder();
-        content.append("<div style=\"padding: 30px 0;\">");
-        content.append("<h3 style=\"font-size: 28px; margin:0 0 20px 0; font-family:Arial;\"> Goals (").append(goals.size()).append(")</h3>");
-
-
-        for (Goal goal : goals) {
-
-            List<Flight> flightList = flightService.getFlightsFromGoal(goal);
-            if (!flightList.isEmpty()) {
-                content.append(openTable());
-                content.append("<tbody>");
-                FlightSummaryDTO flightSummaryDTO = flightService.getFlightSummary(flightList);
-                DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm");
-                dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-                Date startDate = new Date(goal.getStartDate().getTime());
-                Date endDate = new Date(goal.getEndDate().getTime());
-                String start = dateFormat.format(startDate);
-                String end = dateFormat.format(endDate);
-                content.append("<tr>").append("<td><strong>Hours required</strong></td>").append("<td>").append(goal.getHoursRequired()).append("</td>").append("</tr>");
-                content.append("<tr>").append("<td><strong>Between</strong></td>").append("<td>").append(start).append(" - ").append(end).append("</td>").append("</tr>");
-                content.append("<tr>").append("<td><strong>Total hours</strong></td>").append("<td>").append(flightSummaryDTO.getTotalHours()).append("</td>").append("</tr>");
-                content.append("<tr>").append("<td><strong>PIC</strong></td>").append("<td>").append(flightSummaryDTO.getTotalHoursPIC()).append("</td>").append("</tr>");
-                content.append("<tr>").append("<td><strong>Dual</strong></td>").append("<td>").append(flightSummaryDTO.getTotalHoursDual()).append("</td>").append("</tr>");
-                content.append("<tr>").append("<td><strong>Status</strong></td>").append("<td>").append(status(startDate, endDate)).append("</td>").append("</tr>");
-                content.append("</tbody>");
-                content.append("</table>");
-            }
-
-        }
-        content.append("</div>");
-        return content.toString();
-    }
 
     private String status(Date startDate, Date endDate) {
         String status = "";
